@@ -11,4 +11,8 @@ class LongUrl < ActiveRecord::Base
     ShortUrl.create([{name: SecureRandom.urlsafe_base64,
       user_id: user_id, long_url_id: self.id}])
   end
+
+  def num_unique_users
+    LongUrl.find(self.id).users.count
+  end
 end
