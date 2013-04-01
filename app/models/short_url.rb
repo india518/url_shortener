@@ -21,8 +21,8 @@ class ShortUrl < ActiveRecord::Base
   end
 
   def visits_in_last_10
-    Stat.where(Time.now - created_at < 600,
-    self.short_urls.id = short_url_id).count
+    stat_array = Stat.where(short_url_id: self.id ).select {|x| Time.now - x.created_at < 600 }
+    stat_array.count
   end
 
 end
