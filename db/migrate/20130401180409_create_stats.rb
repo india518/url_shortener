@@ -3,6 +3,7 @@ class CreateStats < ActiveRecord::Migration
     create_table :stats do |t|
       t.timestamps
       t.integer :user_id
+      t.integer :short_url_id
     end
   end
 
