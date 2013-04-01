@@ -12,7 +12,8 @@ class LongUrl < ActiveRecord::Base
       user_id: user_id, long_url_id: self.id}])
   end
 
-  def num_unique_users
-    LongUrl.find(self.id).users.count
+  def visits_in_last_10
+    Stat.where(Time.now - created_at < 600,
+    self.short_urls.id = short_url_id).count
   end
 end

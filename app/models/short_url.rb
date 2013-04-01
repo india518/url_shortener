@@ -11,4 +11,18 @@ class ShortUrl < ActiveRecord::Base
     Stat.where(user_id: self.user_id, short_url_id: self.id).count
   end
 
+  def num_unique_users
+    LongUrl.find(self.id).users.count
+  end
+
+  def num_unique_visits
+    stat_hash = Stat.where(short_url_id: self.id).group(:short_url_id).count
+    stat_hash[self.id]
+  end
+
+  def visits_in_last_10
+    Stat.where(Time.now - created_at < 600,
+    self.short_urls.id = short_url_id).count
+  end
+
 end
