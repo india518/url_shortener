@@ -16,13 +16,11 @@ class ShortUrl < ActiveRecord::Base
   end
 
   def num_unique_visits
-    stat_hash = Stat.where(short_url_id: self.id).group(:short_url_id).count
-    stat_hash[self.id]
+    self.stats.count('user_id', distinct: true)
   end
 
   def visits_in_last_10
-    stat_array = Stat.where(short_url_id: self.id ).select {|x| Time.now - x.created_at < 600 }
-    stat_array.count
+    self.stats.select {|x| Time.now - x.created_at < 600 }.count
   end
 
 end
