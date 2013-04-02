@@ -1,4 +1,5 @@
 #require 'launchy'
+require 'debugger'
 current_user = nil
 
 puts "Are you a new or existing user? Type 0 for new, 1 for existing."
@@ -44,8 +45,20 @@ short_url = current_user.short_urls.select {|x| x.name == url }.first
 short_url_id = nil
 if short_url.nil?
   potential_long_url.save!
-  id = LongUrl.make_short_url(url, current_id)
-  short_url_id = id # made make_short_url return id
+  #debugger
+  begin
+    #new_short_url = LongUrl.make_short_url(url, current_id)
+    new_short_url = ShortUrl.new({name: SecureRandom.urlsafe_base64(5),
+      user_id: current_id, long_url_id: potential_long_url.id})
+    new_short_url.save!
+    new_short_id = new_short_url.id
+  rescue
+    puts new_short_url.errors.full_messages
+    puts "Waiting 60 seconds before trying again. Please hold..."
+    sleep(60)
+    retry
+  end
+
 else
   short_url_id = short_url.id
   short_url.display_comments

@@ -14,7 +14,7 @@ class LongUrl < ActiveRecord::Base
     current_id = LongUrl.find(:all, :order => "id desc", :limit => 1).first.id
 
     ShortUrl.make_entry(user_id, current_id)
-    current_id
+#    current_id
   end
 
   def visits_in_last_10
