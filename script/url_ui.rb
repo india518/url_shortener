@@ -26,25 +26,6 @@ else
   url = ShortUrl.find(short_url_id).long_url.name
 end
   #Launchy.open( url )
+  #display comment(s), if they exist
   system('open', url)
   Stat.make_new_stat(short_url_id, current_id)
-
-#  Still working on this!
-  #
-  # if LongUrl.all.select {|x| x.name == url }.empty?
-  #   #not a previous given long_url
-  #
-  #   if ShortUrl.all.select {|x| x.name == url }.empty?
-  #     #not a previous given short_url
-  #     #assume this is a long url we should shorten
-  #     # and add to the database
-  #     short_url = LongUrl.make_short_url(url)
-  #
-  #   else
-  #     #this *is* a given short_url, so open it
-  #     # and update it's stats
-  #
-  #   end
-  # else
-  #   #this is a previous given long url (just open it?)
-  # end
