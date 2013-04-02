@@ -8,7 +8,7 @@ class ShortUrl < ActiveRecord::Base
   has_many :comments
 
   def num_visits
-    Stat.where(user_id: self.user_id, short_url_id: self.id).count
+    self.stats.count
   end
 
   def num_unique_users

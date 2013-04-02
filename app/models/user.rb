@@ -7,15 +7,19 @@ class User < ActiveRecord::Base
   has_many :tags
   has_many :stats
 
+  def initialize(id = nil)
+    @id = id
+  end
+
   def num_links
-    ShortUrl.where(user_id: id).count
+    self.short_urls.count
   end
 
   def make_comment(short_url_id, body)
     Comment.create([{user_id: id, short_url_id: short_url_id, body: body}])
   end
 
-  def add_tag(short_url_id, tag_type_int)
-
+  def add_tag(short_url_id, tag_type_id)
+    Tag.create([{short_url_id: short_url_id, tag_type_id: tag_type_id, user_id: id}])
   end
 end
