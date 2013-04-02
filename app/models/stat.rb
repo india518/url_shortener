@@ -6,6 +6,6 @@ class Stat < ActiveRecord::Base
   belongs_to :tag_type
 
   def self.make_new_stat(short_url_id, current_id)
-    Stats.create(short_url_id: short_url_id, user_id: current_id)
+    Stat.create(short_url_id: short_url_id, user_id: current_id)
   end
 end

@@ -1,4 +1,4 @@
-require 'launchy'
+#require 'launchy'
 current_user = nil
 
 puts "Enter your username!"
@@ -19,12 +19,14 @@ url = gets.chomp
 short_url = current_user.short_urls.select {|x| x.name == url }.first
 short_url_id = nil
 if short_url.nil?
-  short_url_id = LongUrl.make_short_url(url).id
+  id = LongUrl.make_short_url(url, current_id)
+  short_url_id = id # made make_short_url return id
 else
   short_url_id = short_url.id
 end
-  Launchy.open( url )
-  Stats.make_new_stat(short_url_id, current_id)
+  #Launchy.open( url )
+  system('open', url)
+  Stat.make_new_stat(short_url_id, current_id)
 
 #  Still working on this!
   #

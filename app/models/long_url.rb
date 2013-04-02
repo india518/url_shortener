@@ -7,9 +7,12 @@ class LongUrl < ActiveRecord::Base
   has_many :tags, :through => :short_urls
   has_many :stats, :through => :short_urls
 
-  def self.make_short_url(user_id)
-    ShortUrl.create([{name: SecureRandom.urlsafe_base64,
-      user_id: user_id, long_url_id: self.id}])
+  def self.make_short_url(url, user_id)
+    LongUrl.create([{name: url}])
+    current_id = LongUrl.find(:all, :order => "id desc", :limit => 1).first.id
+
+    ShortUrl.make_entry(user_id, current_id)
+    current_id
   end
 
   def visits_in_last_10
