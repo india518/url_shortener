@@ -9,7 +9,7 @@
 long1 = LongUrl.create([{name: 'https://github.com/appacademy/sql-curriculum/blob/master/active-record/migrations.md'}])
 long2 = LongUrl.create([{name: 'http://www.google.com/'}])
 long3 = LongUrl.create([{name: 'www.yahoo.com'}])
-long4 = LongUrl.create([{name: 'appacademy.io'}])
+long4 = LongUrl.create([{name: 'http://appacademy.io'}])
 
 short1 = ShortUrl.create([{name: SecureRandom.urlsafe_base64, user_id: 1, long_url_id: 4}])
 short2 = ShortUrl.create([{name: SecureRandom.urlsafe_base64, user_id: 2, long_url_id: 3}])

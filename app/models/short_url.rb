@@ -7,6 +7,8 @@ class ShortUrl < ActiveRecord::Base
   has_many :tags
   has_many :comments
 
+  validates :name, :presence => true
+
   def num_visits
     self.stats.count
   end
@@ -25,7 +27,11 @@ class ShortUrl < ActiveRecord::Base
   end
 
   def visits_in_last_10
-    self.stats.select {|x| Time.now - x.created_at < 600 }.count
+    self.stats.where("created_at > ?", 10.minutes.ago).count
+  end
+
+  def display_comments
+    self.comments.each { |comment| puts comment.body }
   end
 
 end

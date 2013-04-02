@@ -7,8 +7,10 @@ class LongUrl < ActiveRecord::Base
   has_many :tags, :through => :short_urls
   has_many :stats, :through => :short_urls
 
+  validates :name, :presence => true
+  validates :name, :length => { maximum: 1024 }
+
   def self.make_short_url(url, user_id)
-    LongUrl.create([{name: url}])
     current_id = LongUrl.find(:all, :order => "id desc", :limit => 1).first.id
 
     ShortUrl.make_entry(user_id, current_id)
@@ -16,7 +18,6 @@ class LongUrl < ActiveRecord::Base
   end
 
   def visits_in_last_10
-    Stat.where(Time.now - created_at < 600,
-    self.short_urls.id = short_url_id).count
+    self.stats.where("created_at > ?", 10.minutes.ago).count
   end
 end
