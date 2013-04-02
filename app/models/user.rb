@@ -7,10 +7,6 @@ class User < ActiveRecord::Base
   has_many :tags
   has_many :stats
 
-  def initialize(id = nil)
-    @id = id
-  end
-
   def num_links
     self.short_urls.count
   end

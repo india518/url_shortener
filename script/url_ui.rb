@@ -7,7 +7,7 @@ input = gets.chomp
   user = User.all.select {|x| x.username == input }.first
   if user.nil? #create a new user
     current_user = User.create(username: input.downcase)
-    current_id = User.find(:all, :order => "id desc", :limit => 1).id
+    current_id = User.find(:all, :order => "id desc", :limit => 1).first.id
   else
     current_user = user
     current_id = user.id
@@ -23,6 +23,7 @@ if short_url.nil?
   short_url_id = id # made make_short_url return id
 else
   short_url_id = short_url.id
+  url = ShortUrl.find(short_url_id).long_url.name
 end
   #Launchy.open( url )
   system('open', url)
